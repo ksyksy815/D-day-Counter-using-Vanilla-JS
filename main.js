@@ -35,8 +35,8 @@ submit.value = 'Submit';
 submit.setAttribute('name', 'submit');
 submit.setAttribute('id', 'btn');
 
-/*---Q1: Asking name--- */
 
+/*---Moving to the counter */
 submit.addEventListener('click', function(e) {
     e.preventDefault();
     if (dateInput.value == '') {
@@ -63,25 +63,26 @@ function count () {
         minutes = document.querySelector('.m_number'),
         seconds = document.querySelector('.s_number'),
 
-        today = document.querySelector('.today'),
-        dday = document.querySelector('.dday'),
+    today = document.querySelector('.today'),
+    dday = document.querySelector('.dday'),
 
-        localSDate = new Date(localStorage.getItem('Dday')),
-        todaysDate = new Date();
+    localSDate = new Date(dateInput.value),
+    todaysDate = new Date();
 
-        today.textContent = `TODAY: ${todaysDate.getFullYear()}-${todaysDate.getMonth()+1}-${todaysDate.getDate()}`;
-        dday.textContent = `YOUR D-DAY: ${localStorage.getItem('Dday')}`;    
+    today.textContent = `TODAY: ${todaysDate.getFullYear()}-${todaysDate.getMonth()+1}-${todaysDate.getDate()}`;
+    dday.textContent = `YOUR D-DAY: ${localStorage.getItem('Dday')}`;    
 
-        difference = (localSDate.getTime() - todaysDate.getTime()) / ((1000 * 60 * 60 * 24)),
-        remainingDay = difference,
-        remainingHours = (difference - Math.floor(remainingDay)) * 24,
-        remainingMin = ((difference * 24) - (Math.floor(remainingDay) * 24) - (Math.floor(remainingHours))) * 60,
-        remainingSec = ((difference * 24 * 60) - ((Math.floor(remainingDay) * 24 * 60) + (Math.floor(remainingHours)* 60) + (Math.floor(remainingMin)))) * 60 ;
+    /*---Subtracting 9*60*60*1000 is because the default dateInput.value is set at 9:00am.--- */
+    difference = ((localSDate.getTime()-(9*60*60*1000)) - todaysDate.getTime()) / ((1000 * 60 * 60 * 24)),
+    remainingDay = difference,
+    remainingHours = (difference - Math.floor(remainingDay)) * 24,
+    remainingMin = ((difference * 24) - (Math.floor(remainingDay) * 24) - (Math.floor(remainingHours))) * 60,
+    remainingSec = ((difference * 24 * 60) - ((Math.floor(remainingDay) * 24 * 60) + (Math.floor(remainingHours)* 60) + (Math.floor(remainingMin)))) * 60 ;
 
-        days.textContent = `${Math.floor(remainingDay)}`;
-        hours.textContent = `${Math.floor(remainingHours)}`;
-        minutes.textContent = `${Math.floor(remainingMin)}`;
-        seconds.textContent = `${Math.floor(remainingSec)}`;
+    days.textContent = `${Math.floor(remainingDay)}`;
+    hours.textContent = `${Math.floor(remainingHours)}`;
+    minutes.textContent = `${Math.floor(remainingMin)}`;
+    seconds.textContent = `${Math.floor(remainingSec)}`;
 }
 
 /*---Making stars--- */
